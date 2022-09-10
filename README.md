@@ -2,7 +2,7 @@
 ## REQUIREMENT:
 ### bash packages: blast
 ### python3 packages: Bio, bioservices, pandas, os, multiprocessing, re
-### necessary files: "already-indexed" genome sequence from target species (using blastdb)
+### necessary files: "already-indexed" genome sequence from target species (using blastdb) (will update latter to automatically get it in the future)
 
 ## RUN CODES:
 ### query_seqs.py -> filter_seqs.py
