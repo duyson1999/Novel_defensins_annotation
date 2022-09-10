@@ -6,3 +6,7 @@
 
 ## RUN CODES:
 ### query_seqs.py -> filter_seqs.py
+#
+#
+# ~~~PS~~~
+### This code can be used for other gene in other species, but need to change relative organisms list (depend on class of target species. Eg: black soldier fly -> class insecta)
