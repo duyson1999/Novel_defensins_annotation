@@ -9,20 +9,22 @@
 #############################################################################################
 
 
-import common
 import os
 import re
-import multiprocessing as mp
+import common
+
 import pandas as pd
+import multiprocessing as mp
+
 from Bio import Entrez
 from bioservices import UniProt
 
 from constant import AMP
+from constant import OUTPUT_DIR
 from constant import SPECIES_NAME
 from constant import ORGANISM_NCBI
 from constant import ORGANISM_UNIPROT
 from constant import GENOME_INDEX_DIR
-from constant import OUTPUT_DIR
 from constant import UNIPROT_QUERY_LIMIT
 
 
