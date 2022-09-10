@@ -9,4 +9,4 @@
 #
 #
 # ~~~PS~~~
-### This code can be used for other gene in other species, but need to change relative organisms list (depend on class of target species. Eg: black soldier fly -> class insecta)
+### This code can be used to find every gene in every target species (as long as they has their genome sequenced). However, user needs to change relative organisms list (depend on class of target species. Eg: black soldier fly -> class insecta)
