@@ -217,9 +217,9 @@ def collect_reference_proteins(
 def index_genome_db(wgs_fa_path):
 	saving_dir = '{}/wgs_db'.format(ROOT_DIR)
 	common.mkdir(saving_dir)
-	cmd = 'makeblastdb -in {} -dbtype nucl -out {}'.format(wgs_fa_path, saving_dir)
+	cmd = 'makeblastdb -in {} -dbtype nucl -out {}/DB'.format(wgs_fa_path, saving_dir)
 	os.system(cmd)
-	return saving_dir
+	return '{}/DB'.format(saving_dir)
 
 
 def query_tblastn(wgs_db_dir, reference_path):
