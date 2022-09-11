@@ -79,9 +79,7 @@ def join_hit(CDS_df):
 	accession = []
 	for chr_number in chromosome_lst:
 		location_lst = _gene_location_in_specific_chromosome(CDS_df, chr_number)
-		print (1)
 		final_concatenate_list = _edit(location_lst)
-		print (2)
 		sstart += [X[0] for X in final_concatenate_list]
 		send += [X[1] for X in final_concatenate_list]
 		chromosome += [chr_number for i in range (len(final_concatenate_list))]
@@ -104,8 +102,6 @@ def retrieve_protein_seqs(accession, sstart, send):
 
 if __name__ == '__main__':
 	new_cds_df = pd.read_csv('{}/new_cds.txt'.format(OUTPUT_DIR), sep='\t', index_col=0)
-	old_cds_df = pd.read_csv('{}/old_cds.txt'.format(OUTPUT_DIR), sep='\t', index_col=0)
-
 	accession, sstart, send, chromosome = join_hit(new_cds_df)
 	df = pd.DataFrame({
 			'accession': accession,
@@ -117,6 +113,7 @@ if __name__ == '__main__':
 	fasta_seqs = retrieve_protein_seqs(accession, sstart, send)
 	open('new_cds_seqs.txt', 'w').write(fasta_seqs)
 
+	old_cds_df = pd.read_csv('{}/old_cds.txt'.format(OUTPUT_DIR), sep='\t', index_col=0)
 	accession, sstart, send, chromosome = join_hit(old_cds_df)
 	df = pd.DataFrame({
 			'accession': accession,

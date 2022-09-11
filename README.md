@@ -2,12 +2,13 @@
 ## REQUIREMENT:
 #### bash packages: blast
 #### python3 packages: Bio, bioservices, pandas, os, multiprocessing, re
-#### necessary files: "already-indexed" genome sequence from target species (using blastdb) (will update latter to help automatically get it in the future)
-
+#### necessary files: whole genome sequencing in fasta format (change WHOLE_GENOME_FASTA variable in constant.py)
+#
+#
 ## RUN CODES:
 #### query_seqs.py -> filter_seqs.py
-#### Note: change ***_DIR variables in constant.py (local destination to save your result)
+#### Note: change *path variables in constant.py (local destination to save your result)
 #
 #
-# ~~~PS~~~
-#### This code can be used to find every gene in every target species (as long as they has their genome sequenced). However, user needs to change relative organisms list (depend on class of target species. Eg: black soldier fly -> class insecta)
+# ____PS____
+#### This code can be used to find every gene in every target species (as long as they has their genome sequenced). However, user needs to change relative organisms list - 2 organisms_****.txt files (depend on class of target species. Eg: black soldier fly -> class insecta)
