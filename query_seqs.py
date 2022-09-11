@@ -19,12 +19,11 @@ import multiprocessing as mp
 from Bio import Entrez
 from bioservices import UniProt
 
-from constant import AMP
+from constant import AMP, ROOT_DIR, WHOLE_GENOME_FASTA
 from constant import OUTPUT_DIR
 from constant import SPECIES_NAME
 from constant import ORGANISM_NCBI
 from constant import ORGANISM_UNIPROT
-from constant import GENOME_INDEX_DIR
 from constant import UNIPROT_QUERY_LIMIT
 
 
@@ -215,16 +214,20 @@ def collect_reference_proteins(
 	return path
 
 
-def index_genome_db():
-	return
+def index_genome_db(wgs_fa_path):
+	saving_dir = '{}/wgs_db'.format(ROOT_DIR)
+	common.mkdir(saving_dir)
+	cmd = 'makeblastdb -in {} -dbtype nucl -out {}'.format(wgs_fa_path, saving_dir)
+	os.system(cmd)
+	return saving_dir
 
 
-def query_tblastn(reference_path):
+def query_tblastn(wgs_db_dir, reference_path):
 	output_path = '{}/tblastn_result.txt'.format(OUTPUT_DIR)
 	cmd = 'tblastn -db {} -query {} -out {} -word_size 3 \
 		-xdrop_gap 32 -xdrop_ungap 16 -evalue 0.0001 \
 		-outfmt "6 qseqid sseqid sstart send evalue bitscore length pident nident stitle"'.format(
-			GENOME_INDEX_DIR, reference_path, output_path
+			wgs_db_dir, reference_path, output_path
 		)
 	os.system(cmd)
 	df = _restructure_tblasn_output(output_path)
@@ -282,9 +285,10 @@ def retrieve_back_tBLASTn_result (CDS_dict, original_file, new_file_name):
 
 
 if __name__ == '__main__':
+	wgs_db_dir = index_genome_db(WHOLE_GENOME_FASTA)
 	known_genes_location_path = retrieve_known_gene_location(AMP, SPECIES_NAME)
 	ref_path = collect_reference_proteins(AMP, ORGANISM_NCBI, ORGANISM_UNIPROT)
-	tblastn_path = query_tblastn('{}/reference_proteins.txt'.format(OUTPUT_DIR))
+	tblastn_path = query_tblastn(wgs_db_dir, '{}/reference_proteins.txt'.format(OUTPUT_DIR))
 	new_CDS, old_CDS = separate_old_and_new_result(tblastn_path, known_genes_location_path)
 	retrieve_back_tBLASTn_result(new_CDS, tblastn_path, '{}/{}'.format(OUTPUT_DIR, 'new_cds.txt'))
 	retrieve_back_tBLASTn_result(old_CDS, tblastn_path, '{}/{}'.format(OUTPUT_DIR, 'old_cds.txt'))
