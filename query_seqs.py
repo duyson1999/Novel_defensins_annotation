@@ -22,9 +22,17 @@ from bioservices import UniProt
 from constant import AMP, ROOT_DIR, WHOLE_GENOME_FASTA
 from constant import OUTPUT_DIR
 from constant import SPECIES_NAME
-from constant import ORGANISM_NCBI
-from constant import ORGANISM_UNIPROT
+from constant import RELATIVE_SPECIES
 from constant import UNIPROT_QUERY_LIMIT
+
+
+def _format_species_query_ncbi(species_lst):
+	lst = ['"{}"[Organism]'.format(x) for x in species_lst]
+	return ' OR '.join(lst)
+
+
+def _format_species_query_uniprot(species_lst):
+	return ' OR '.join(species_lst)
 
 
 def _parse_list2string(lst):
@@ -197,9 +205,10 @@ def retrieve_known_gene_location(amp_name, species):
 
 def collect_reference_proteins(
 		amp_name,
-		ncbi_organisms,
-		uniprot_oragnisms
+		relative_species
 	):
+	ncbi_organisms = _format_species_query_ncbi(relative_species)
+	uniprot_oragnisms  = _format_species_query_uniprot(relative_species)
 	ncbi_data = _collect_reference_proteins_ncbi(
 			amp_name,
 			ncbi_organisms
@@ -287,7 +296,7 @@ def retrieve_back_tBLASTn_result (CDS_dict, original_file, new_file_name):
 if __name__ == '__main__':
 	wgs_db_dir = index_genome_db(WHOLE_GENOME_FASTA)
 	known_genes_location_path = retrieve_known_gene_location(AMP, SPECIES_NAME)
-	ref_path = collect_reference_proteins(AMP, ORGANISM_NCBI, ORGANISM_UNIPROT)
+	ref_path = collect_reference_proteins(AMP, RELATIVE_SPECIES)
 	tblastn_path = query_tblastn(wgs_db_dir, '{}/reference_proteins.txt'.format(OUTPUT_DIR))
 	new_CDS, old_CDS = separate_old_and_new_result(tblastn_path, known_genes_location_path)
 	retrieve_back_tBLASTn_result(new_CDS, tblastn_path, '{}/{}'.format(OUTPUT_DIR, 'new_cds.txt'))
