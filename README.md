@@ -12,3 +12,4 @@
 #
 # ____PS____
 #### This code can be used to annotate any gene on any target species genome (as long as they has their genome sequenced). However, user needs to change relative organisms list - relative_species.txt files for collecting reference proteins (depend on class of target species. Eg: black soldier fly -> class insecta)
+#### Contact: duyson1999@gmail.com
