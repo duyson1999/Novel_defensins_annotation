@@ -1,4 +1,7 @@
 # Novel_defensins_annotation
+## OVERVIEW:
+![Screenshot 2023-11-22 at 11 38 16](https://github.com/duyson1999/Novel_defensins_annotation/assets/54480960/31abf29d-11e1-44de-bc6d-93f19840d830)
+
 ## REQUIREMENT:
 #### bash packages: blast
 #### python3 packages: Bio, bioservices, pandas, os, multiprocessing, re
